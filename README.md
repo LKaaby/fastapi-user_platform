@@ -13,6 +13,7 @@ A modern, secure user authentication and management platform built with FastAPI,
 - **RESTful API**: Fully documented FastAPI endpoints
 
 ## Project Structure
+```text
 fastapi-user-platform/
 ├── src/
 │ ├── api/v1/ # API routes (auth, admin)
@@ -27,24 +28,31 @@ fastapi-user-platform/
 ├── migrations/ # Alembic database migrations
 ├── tests/ # Test suite
 └── requirements.txt # Python dependencies
-
+```
 ## Installation
 
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/LKaaby/fastapi-user_platform.git
    cd fastapi-user_platform
+   ```
 2. **Create virtual environment**:
+   ```bash
    python -m venv .venv
    source .venv/bin/activate  # On Windows: .venv\Scripts\Activate.ps1/bat
+   ```
 3. **Install dependencies**:
+   ```bash
    pip install -r requirements.txt
+   ```
 4. **Environment Configuration**:
+   ```bash
    DATABASE_URL=postgresql+psycopg2://username:password@localhost:5432/user_platform
    SECRET_KEY=your-secret-key-here
    ACCESS_TOKEN_EXPIRE_MINUTES=30
    REFRESH_TOKEN_EXPIRE_DAYS=7
    ENVIRONMENT=development
+   ```
 5. **Database Setup**:
    alembic upgrade head
 
@@ -69,4 +77,7 @@ fastapi-user-platform/
 
 ## Running the Application
 Start the development server
+```bash
 uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
+```
+
