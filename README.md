@@ -54,8 +54,9 @@ fastapi-user-platform/
    ENVIRONMENT=development
    ```
 5. **Database Setup**:
+   ```bash
    alembic upgrade head
-
+   ```
 ## Key Endpoints
 
 ### Authentication
@@ -80,4 +81,5 @@ Start the development server
 ```bash
 uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
 ```
+
 
