@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex font-sans">
+
+  <!-- Sidebar -->
+  <aside class="w-64 bg-indigo-800 text-white flex flex-col shadow-lg">
+    <div class="p-6 font-bold text-2xl border-b border-indigo-700">User Panel</div>
+    <nav class="flex-1 px-4 py-4 space-y-2">
+      <a href="#profile" class="block py-2 px-3 rounded hover:bg-indigo-700 transition">Profile</a>
+      <a href="#mydata" class="block py-2 px-3 rounded hover:bg-indigo-700 transition">My Data</a>
+    </nav>
+    <div class="p-6 border-t border-indigo-700">
+      <span id="username" class="block mb-2 font-medium"></span>
+      <button id="logout" class="bg-red-500 px-4 py-2 rounded hover:bg-red-600 w-full transition">Logout</button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-6 space-y-6">
+    <h1 class="text-3xl font-bold text-gray-800">Welcome!</h1>
+    <p class="text-lg text-gray-700">This is your personal dashboard. From here you can view your profile, check your data, and manage your account.</p>
+  </main>
+
+  <script>
+    // Check current user
+    async function getCurrentUser() {
+      try {
+        const res = await fetch('/auth/me', { credentials: 'include' });
+        if (!res.ok) throw new Error('Not authenticated');
+        const user = await res.json();
+        document.getElementById('username').textContent = user.username;
+      } catch {
+        window.location.href = '/login';
+      }
+    }
+
+    // Secure logout using backend endpoint
+    document.getElementById('logout').addEventListener('click', async () => {
+      try {
+        await fetch('/auth/logout', { 
+          method: 'POST',
+          credentials: 'include'
+        });
+      } catch (error) {
+        // Silently handle errors - we'll redirect anyway
+        console.log('Logout API call failed');
+      } finally {
+        // Always redirect to login page
+        window.location.href = '/login';
+      }
+    });
+
+    getCurrentUser();
+  </script>
+
+</body>
+</html>
